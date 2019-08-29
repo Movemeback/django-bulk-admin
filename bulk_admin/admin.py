@@ -9,7 +9,6 @@ from django.contrib.admin.templatetags.admin_static import static
 from django.contrib.admin.templatetags.admin_urls import add_preserved_filters
 from django.contrib.admin.utils import NestedObjects, flatten_fieldsets
 from django.core.exceptions import PermissionDenied, ValidationError
-from django.core.urlresolvers import reverse
 from django.db import router, transaction
 from django.forms.formsets import DELETION_FIELD_NAME, INITIAL_FORM_COUNT, TOTAL_FORM_COUNT, ManagementForm
 from django.forms.models import modelform_defines_fields, modelformset_factory, BaseModelFormSet
@@ -26,6 +25,10 @@ import django
 import re
 import uuid
 
+if django.VERSION[0] == 1:
+    from django.core.urlresolvers import reverse
+else:
+    from django.urls import reverse
 
 _RE_BULK_FILE = re.compile(r'^([^\\-]+)-([^\\-]+)$')
 
